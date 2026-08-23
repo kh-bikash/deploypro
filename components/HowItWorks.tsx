@@ -25,8 +25,8 @@ export default function HowItWorks() {
           </h2>
         </div>
 
-        <div className="walkthrough-frame reveal">
-          <div className="walkthrough-bar" aria-hidden="true">
+        <div className="sketch-frame reveal">
+          <div className="sketch-bar" aria-hidden="true">
             <span />
             <span />
             <span />
