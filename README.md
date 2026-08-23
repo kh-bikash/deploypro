@@ -15,7 +15,7 @@ Two values in `lib/site.ts` are placeholders and must be confirmed:
 
 | Field | Current | Why it matters |
 | --- | --- | --- |
-| `url` | `https://deployto.infy.click` | Canonical URL, OG tags, `sitemap.xml`, `robots.txt` |
+| `url` | `https://deploypro-khbikash18-gmailcoms-projects.vercel.app` | Canonical URL, OG tags, `sitemap.xml`, `robots.txt` |
 | `contactEmail` | `deploy@buildfastwithai.com` | Footer link and the lead-form fallback |
 
 Set `DEPLOY_LEAD_WEBHOOK` to receive enquiries. Without it, `POST /api/contact` validates

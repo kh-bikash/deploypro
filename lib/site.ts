@@ -1,7 +1,7 @@
 export const site = {
   name: "DEPLOY",
   parent: "Build Fast with AI",
-  url: "https://deployto.infy.click",
+  url: "https://deploypro-khbikash18-gmailcoms-projects.vercel.app",
   contactEmail: "deploy@buildfastwithai.com",
   tagline: "Deployed, not demoed.",
   description:
