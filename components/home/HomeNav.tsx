@@ -44,12 +44,16 @@ export default function HomeNav() {
           {homeNav.map((item) =>
             item.children ? (
               <div key={item.label} className={styles.dropdownItem}>
-                <Link href={item.href} className={styles.dropdownTrigger}>
+                <button
+                  type="button"
+                  className={styles.dropdownTrigger}
+                  aria-haspopup="true"
+                >
                   <span>{item.label}</span>
                   <span className={styles.dropdownChevron} aria-hidden="true">
                     ▼
                   </span>
-                </Link>
+                </button>
                 <div className={styles.dropdownMenu}>
                   {item.children.map((child) => (
                     <Link key={child.href} href={child.href} className={styles.dropdownLink}>
@@ -64,11 +68,11 @@ export default function HomeNav() {
                   ))}
                 </div>
               </div>
-            ) : (
+            ) : item.href ? (
               <Link key={item.href} href={item.href}>
                 {item.label}
               </Link>
-            ),
+            ) : null,
           )}
         </nav>
 
@@ -90,9 +94,15 @@ export default function HomeNav() {
       <div className={open ? `${styles.mobile} ${styles.open}` : styles.mobile}>
         {homeNav.map((item) => (
           <div key={item.label}>
-            <Link href={item.href} onClick={() => setOpen(false)}>
-              {item.label}
-            </Link>
+            {item.href ? (
+              <Link href={item.href} onClick={() => setOpen(false)}>
+                {item.label}
+              </Link>
+            ) : (
+              <div style={{ padding: "8px 0 4px", fontSize: "12px", textTransform: "uppercase", letterSpacing: ".14em", color: "var(--v2-dim-2)", fontFamily: "var(--font-mono)" }}>
+                {item.label}
+              </div>
+            )}
             {item.children && (
               <div className={styles.mobileSubList}>
                 {item.children.map((child) => (

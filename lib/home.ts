@@ -168,7 +168,7 @@ export const workProjects = [
 ];
 
 export const homeNav: {
-  href: string;
+  href?: string;
   label: string;
   children?: { href: string; label: string; description?: string }[];
 }[] = [
@@ -177,10 +177,9 @@ export const homeNav: {
   { href: "/impact", label: "Impact" },
   { href: "/proof", label: "Proof" },
   {
-    href: "/blogs",
     label: "Resources",
     children: [
-      { href: "/blogs", label: "Blogs", description: "Engineering insights & case studies" },
+      { href: "/blogs", label: "Blogs", description: "Production case studies & engineering breakdowns" },
     ],
   },
 ];

@@ -24,7 +24,7 @@ export const socials = [
 ];
 
 export type NavLink = {
-  href: string;
+  href?: string;
   label: string;
   children?: { href: string; label: string; description?: string }[];
 };
@@ -33,10 +33,9 @@ export const nav: NavLink[] = [
   { href: "/process", label: "Process" },
   { href: "/proof", label: "Proof" },
   {
-    href: "/blogs",
     label: "Resources",
     children: [
-      { href: "/blogs", label: "Blogs", description: "Engineering insights & case studies" },
+      { href: "/blogs", label: "Blogs", description: "Production case studies & engineering breakdowns" },
     ],
   },
   { href: "/engage", label: "How we engage" },

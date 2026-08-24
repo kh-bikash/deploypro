@@ -29,16 +29,46 @@ export default function Nav({ variant = "solid" }: Props) {
             </span>
           </Link>
           <div className="links">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)) ? "current" : undefined}
-                aria-current={pathname === item.href ? "page" : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {nav.map((item) =>
+              item.children ? (
+                <div key={item.label} className="dropdown" style={{ position: "relative", display: "inline-flex" }}>
+                  <span style={{ cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                    {item.label}
+                    <small style={{ fontSize: "8px", opacity: 0.6 }}>▼</small>
+                  </span>
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "100%",
+                      left: 0,
+                      background: "#111113",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      borderRadius: "8px",
+                      padding: "6px",
+                      minWidth: "140px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "4px",
+                    }}
+                  >
+                    {item.children.map((child) => (
+                      <Link key={child.href} href={child.href} style={{ padding: "4px 8px", fontSize: "13px" }}>
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : item.href ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)) ? "current" : undefined}
+                  aria-current={pathname === item.href ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
+              ) : null,
+            )}
           </div>
         </div>
 
@@ -59,8 +89,14 @@ export default function Nav({ variant = "solid" }: Props) {
 
       <div className={open ? "nav-mobile open" : "nav-mobile"}>
         {nav.map((item) => (
-          <div key={item.href}>
-            <Link href={item.href}>{item.label}</Link>
+          <div key={item.label}>
+            {item.href ? (
+              <Link href={item.href}>{item.label}</Link>
+            ) : (
+              <span style={{ fontSize: "12px", textTransform: "uppercase", opacity: 0.6, letterSpacing: ".1em" }}>
+                {item.label}
+              </span>
+            )}
             {item.children && (
               <div style={{ paddingLeft: "16px", display: "flex", flexDirection: "column", gap: "6px" }}>
                 {item.children.map((child) => (
