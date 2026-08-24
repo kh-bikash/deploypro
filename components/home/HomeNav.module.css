@@ -20,19 +20,20 @@
 .brand {
   justify-self: start;
   display: inline-flex;
-  align-items: baseline;
-  gap: 9px;
+  align-items: center;
+  gap: 12px;
 }
-.mark em {
-  font-family: var(--font-serif), Georgia, serif;
-  font-style: italic;
-  font-size: 25px;
+.mark {
+  display: inline-flex;
+  align-items: center;
   line-height: 1;
-  letter-spacing: -.01em;
   color: var(--v2-ink);
-  transition: opacity .2s ease;
+  transition: transform .2s ease, opacity .2s ease;
 }
-.mark:hover em { opacity: .78; }
+.mark:hover {
+  transform: scale(1.05);
+  opacity: .88;
+}
 
 .by {
   font-family: var(--font-mono), monospace;

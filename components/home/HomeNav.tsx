@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Logo from "@/components/Logo";
 import { homeNav } from "@/lib/home";
 import { site } from "@/lib/site";
 import styles from "./HomeNav.module.css";
@@ -23,8 +24,8 @@ export default function HomeNav() {
         {/* two separate targets — the wordmark goes home, the parent brand goes
             to Build Fast with AI (nesting anchors would be invalid markup) */}
         <div className={styles.brand}>
-          <Link className={styles.mark} href="/">
-            <em>deploy</em>
+          <Link className={styles.mark} href="/" aria-label="DEPLOY Home">
+            <Logo size={25} />
           </Link>
           <span className={styles.by}>
             by{" "}

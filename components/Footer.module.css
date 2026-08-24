@@ -23,12 +23,10 @@
   padding: 64px 0 52px;
 }
 
-.brand em {
-  font-family: var(--font-serif), Georgia, serif;
-  font-style: italic;
-  font-size: 30px;
-  line-height: 1;
-  color: var(--v2-ink);
+.brand {
+  display: inline-flex;
+  align-items: center;
+  color: #ffffff;
 }
 
 .about {

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Logo from "@/components/Logo";
 import { nav } from "@/lib/site";
 
 type Props = { variant?: "hero" | "solid" };
@@ -19,10 +20,8 @@ export default function Nav({ variant = "solid" }: Props) {
     <nav className={variant === "hero" ? "nav" : "site-nav"} aria-label="Primary">
       <div className="nav-inner">
         <div className="nav-left">
-          <Link className="brand" href="/">
-            <span className="brand-mark" aria-hidden="true">
-              D
-            </span>
+          <Link className="brand" href="/" aria-label="DEPLOY Home" style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
+            <Logo size={24} />
             <span className="brand-words">
               <strong>DEPLOY</strong>
               <small>from Build Fast with AI</small>
