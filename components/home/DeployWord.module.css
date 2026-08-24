@@ -35,16 +35,15 @@
   border: 0;
   background: none;
   font: inherit;
-  color: rgba(243, 240, 232, .22);
+  color: rgba(243, 240, 232, 0.55);
   text-align: center;
   line-height: .92;
   cursor: pointer;
-  transition: color .45s ease, transform .55s cubic-bezier(.16, 1, .3, 1),
-    opacity .45s ease;
+  transition: color .35s ease, transform .45s cubic-bezier(.16, 1, .3, 1);
 }
 .letter.on {
-  color: var(--v2-ink);
-  transform: translateY(-.05em);
+  color: #ffffff;
+  transform: translateY(-.04em);
 }
 .letter:focus-visible { outline: none; }
 .letter:focus-visible .glyph {

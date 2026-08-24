@@ -1,14 +1,13 @@
-/* Aurora sits behind everything in the hero. Kept low-opacity and masked at the
-   foot so it never competes with the wordmark or the stats row. */
+/* Minimalist Blue Aurora behind Hero */
 .aurora {
   position: absolute;
   z-index: 0;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  opacity: .34;
-  mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, .78) 30%, rgba(0, 0, 0, .3) 54%, transparent 80%);
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, .78) 30%, rgba(0, 0, 0, .3) 54%, transparent 80%);
+  opacity: .52;
+  mask-image: radial-gradient(ellipse 85% 65% at 50% 25%, #000 20%, rgba(0, 0, 0, .6) 55%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 25%, #000 20%, rgba(0, 0, 0, .6) 55%, transparent 85%);
 }
 
 .aurora canvas {
@@ -18,5 +17,7 @@
 }
 
 @media (max-width: 860px) {
-  .aurora { opacity: .26; }
+  .aurora {
+    opacity: .42;
+  }
 }

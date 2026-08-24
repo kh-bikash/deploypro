@@ -16,14 +16,8 @@
   inset: -25% -10% auto -10%;
   height: 130%;
   pointer-events: none;
-  /* Kept faint — the veil canvas carries the colour now. This also stands in
-     for it when WebGL is unavailable. */
-  background:
-    radial-gradient(52% 40% at 50% 6%, rgba(59, 130, 246, .07), transparent 64%),
-    radial-gradient(60% 46% at 50% 60%, rgba(255, 255, 255, .028), transparent 66%);
-  animation: breathe 16s ease-in-out infinite;
+  background: radial-gradient(52% 40% at 50% 12%, rgba(59, 130, 246, .06), transparent 64%);
 }
-@keyframes breathe { 50% { opacity: .62; transform: translateY(16px); } }
 
 .grid {
   position: absolute;

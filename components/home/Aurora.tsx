@@ -5,12 +5,8 @@ import { useEffect, useRef } from "react";
 import styles from "./Aurora.module.css";
 
 /**
- * React Bits' Aurora, adapted for this project: typed, tuned to the brand
- * palette, and taught to stop rendering when nobody is looking (off-screen,
- * hidden tab, or reduced-motion) rather than burning a rAF loop forever.
- *
- * The shader is WebGL2 (`#version 300 es`); if the context comes back WebGL1
- * we bail and the CSS glow underneath stands in.
+ * 2nd Blue Design: Multi-octave domain-warped WebGL2 Aurora shader.
+ * Produces silky, fluid, atmospheric ribbon dynamics tuned to minimalist blue tones.
  */
 
 const VERT = `#version 300 es
@@ -75,6 +71,15 @@ float snoise(vec2 v){
   return 130.0 * dot(m, g);
 }
 
+// Multi-octave domain-warping for liquid organic flow
+float fbm(vec2 p) {
+  float n1 = snoise(p);
+  vec2 warp = vec2(n1, snoise(p + vec2(5.2, 1.3)));
+  float n2 = snoise(p * 2.05 + warp * 0.7);
+  float n3 = snoise(p * 4.1 + warp * 1.2);
+  return n1 * 0.55 + n2 * 0.32 + n3 * 0.13;
+}
+
 struct ColorStop {
   vec3 color;
   float position;
@@ -91,7 +96,7 @@ struct ColorStop {
   ColorStop nextColor = colors[index + 1];                  \
   float range = nextColor.position - currentColor.position; \
   float lerpFactor = (factor - currentColor.position) / range; \
-  finalColor = mix(currentColor.color, nextColor.color, lerpFactor); \
+  finalColor = mix(currentColor.color, nextColor.color, clamp(lerpFactor, 0.0, 1.0)); \
 }
 
 void main() {
@@ -102,20 +107,41 @@ void main() {
   colors[1] = ColorStop(uColorStops[1], 0.5);
   colors[2] = ColorStop(uColorStops[2], 1.0);
 
+  // Flow coordinates with organic time evolution
+  vec2 flowCoord1 = vec2(uv.x * 1.35 + uTime * 0.035, uv.y * 0.85 + uTime * 0.022);
+  vec2 flowCoord2 = vec2(uv.x * 2.2 - uTime * 0.045, uv.y * 1.4 - uTime * 0.03);
+
+  float flow1 = fbm(flowCoord1) * uAmplitude;
+  float flow2 = fbm(flowCoord2) * uAmplitude;
+
+  // Compute organic ribbon heights
+  float wave1 = sin(uv.x * 3.1415 + flow1 * 1.4) * 0.25 + flow1 * 0.35;
+  float wave2 = cos(uv.x * 2.4 - flow2 * 1.2) * 0.2 + flow2 * 0.25;
+
+  float targetY1 = 0.48 + wave1;
+  float targetY2 = 0.36 + wave2;
+
+  // Soft atmospheric vertical falloff
+  float dist1 = abs(uv.y - targetY1);
+  float dist2 = abs(uv.y - targetY2);
+
+  float glow1 = exp(-dist1 * 3.8);
+  float glow2 = exp(-dist2 * 4.6);
+
+  float totalGlow = glow1 * 0.75 + glow2 * 0.55;
+
+  // Color mapping with dynamic fluid interpolation
+  float colorFactor = clamp(uv.x * 0.8 + flow1 * 0.4 + 0.1, 0.0, 1.0);
   vec3 rampColor;
-  COLOR_RAMP(colors, uv.x, rampColor);
+  COLOR_RAMP(colors, colorFactor, rampColor);
 
-  float height = snoise(vec2(uv.x * 2.0 + uTime * 0.1, uTime * 0.25)) * 0.5 * uAmplitude;
-  height = exp(height);
-  height = (uv.y * 2.0 - height + 0.2);
-  float intensity = 0.6 * height;
+  // Soft vignette and blend
+  float verticalFade = smoothstep(0.0, 0.22, uv.y) * smoothstep(0.98, 0.55, uv.y);
+  float alpha = clamp(totalGlow * verticalFade * (1.1 - uBlend * 0.3), 0.0, 1.0);
 
-  float midPoint = 0.20;
-  float auroraAlpha = smoothstep(midPoint - uBlend * 0.5, midPoint + uBlend * 0.5, intensity);
+  vec3 finalColor = rampColor * totalGlow * 1.4;
 
-  vec3 auroraColor = intensity * rampColor;
-
-  fragColor = vec4(auroraColor * auroraAlpha, auroraAlpha);
+  fragColor = vec4(finalColor * alpha, alpha);
 }
 `;
 
@@ -129,14 +155,13 @@ type Props = {
 };
 
 export default function Aurora({
-  colorStops = ["#1e3a8a", "#3b82f6", "#4f46e5"],
-  amplitude = 0.9,
-  blend = 0.8,
-  speed = 0.35,
-  resolutionScale = 0.7,
+  colorStops = ["#0284c7", "#3b82f6", "#60a5fa"],
+  amplitude = 1.0,
+  blend = 0.55,
+  speed = 0.32,
+  resolutionScale = 0.85,
 }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
-  // read inside the loop so prop tweaks apply without tearing down the context
   const propsRef = useRef({ colorStops, amplitude, blend, speed });
   propsRef.current = { colorStops, amplitude, blend, speed };
 
@@ -160,7 +185,6 @@ export default function Aurora({
 
     const gl = renderer.gl;
 
-    // the shader is GLSL ES 3.00 — WebGL1 cannot compile it
     if (!(gl instanceof WebGL2RenderingContext)) {
       gl.getExtension("WEBGL_lose_context")?.loseContext();
       return;
@@ -175,7 +199,6 @@ export default function Aurora({
     canvas.style.backgroundColor = "transparent";
 
     const geometry = new Triangle(gl);
-    // the vertex shader declares no uv attribute
     if (geometry.attributes.uv) delete geometry.attributes.uv;
 
     const toRgb = (stops: string[]) =>
@@ -203,7 +226,6 @@ export default function Aurora({
       const w = host.offsetWidth || 1;
       const h = host.offsetHeight || 1;
       renderer.setSize(w, h);
-      // setSize stamps inline px on the canvas; let the stylesheet own display size
       canvas.style.width = "";
       canvas.style.height = "";
       program.uniforms.uResolution.value = [gl.drawingBufferWidth, gl.drawingBufferHeight];
@@ -215,7 +237,7 @@ export default function Aurora({
 
     const draw = (t: number) => {
       const p = propsRef.current;
-      program.uniforms.uTime.value = t * 0.01 * (p.speed ?? 1) * 0.1;
+      program.uniforms.uTime.value = t * 0.01 * (p.speed ?? 1) * 0.15;
       program.uniforms.uAmplitude.value = p.amplitude ?? 1;
       program.uniforms.uBlend.value = p.blend ?? 0.5;
       program.uniforms.uColorStops.value = toRgb(p.colorStops ?? colorStops);
@@ -247,7 +269,6 @@ export default function Aurora({
       cancelAnimationFrame(frame);
     };
 
-    // only render while the hero is on screen and the tab is live
     const observer = new IntersectionObserver(
       ([entry]) => (entry.isIntersecting && !document.hidden ? play() : pause()),
       { threshold: 0 },
@@ -268,8 +289,6 @@ export default function Aurora({
       if (canvas.parentNode === host) host.removeChild(canvas);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-    // colorStops/blend/speed are read live through propsRef
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amplitude, resolutionScale]);
 
   return <div className={styles.aurora} ref={hostRef} aria-hidden="true" />;
