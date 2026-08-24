@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import BookCta from "@/components/home/BookCta";
 import HomeNav from "@/components/home/HomeNav";
 import Work from "@/components/home/Work";
-import { caseStudies } from "@/lib/content";
+import { caseStudyArticles } from "@/lib/caseStudies";
 import shell from "../home.module.css";
 import styles from "./proof.module.css";
 
@@ -31,26 +33,36 @@ export default function ProofPage() {
       {/* the client row and project grid, without repeating the heading above */}
       <Work showHead={false} showCta={false} />
 
-      <section className={styles.detail}>
+      {/* the long-form breakdowns that used to sit behind Resources → Blogs */}
+      <section className={styles.reads} id="case-studies">
         <div className={styles.inner}>
-          <div className={styles.kicker}>Case studies</div>
-          <div className={styles.list}>
-            {caseStudies.map((study) => (
-              <article className={styles.case} key={study.title}>
-                <div className={styles.caseAside}>
-                  <span className={styles.caseSector}>{study.sector}</span>
-                  <strong className={styles.caseMetric}>{study.metric}</strong>
-                  <span className={styles.caseMetricLabel}>{study.metricLabel}</span>
-                </div>
-                <div className={styles.caseBody}>
-                  <h2>{study.title}</h2>
-                  {study.body.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                  <div className={styles.caseWhy}>
-                    <span>Why it matters for a DEPLOY build</span>
-                    {study.relevance}
+          <div className={styles.kicker}>Engineering breakdowns</div>
+          <h2 className={styles.readsTitle}>How these systems were actually built.</h2>
+
+          <div className={styles.readGrid}>
+            {caseStudyArticles.map((article) => (
+              <article className={styles.read} key={article.slug}>
+                <Link className={styles.readMedia} href={article.href} tabIndex={-1}>
+                  <Image
+                    src={article.thumbnail}
+                    alt=""
+                    width={1200}
+                    height={675}
+                    className={styles.readThumb}
+                  />
+                </Link>
+                <div className={styles.readBody}>
+                  <div className={styles.readMeta}>
+                    <span className={styles.readPill}>{article.category}</span>
+                    <span>{article.readTime}</span>
                   </div>
+                  <h3 className={styles.readHeading}>
+                    <Link href={article.href}>{article.title}</Link>
+                  </h3>
+                  <p className={styles.readExcerpt}>{article.description}</p>
+                  <Link className={styles.readMore} href={article.href}>
+                    Read case study <span aria-hidden="true">→</span>
+                  </Link>
                 </div>
               </article>
             ))}

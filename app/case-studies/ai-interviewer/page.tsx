@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import ArticleCta from "@/components/home/ArticleCta";
 import BookCta from "@/components/home/BookCta";
 import HomeNav from "@/components/home/HomeNav";
 import shell from "../../home.module.css";
@@ -290,6 +291,8 @@ export default function AiInterviewerCaseStudyPage() {
             </p>
             <p>For hiring workflows, this consistency matters as much as raw model capability.</p>
           </section>
+
+            <ArticleCta />
 
           {/* Section 7: Four Workstreams */}
           <section className={styles.section}>

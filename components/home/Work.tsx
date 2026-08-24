@@ -55,7 +55,7 @@ export default function Work({ showHead = true, showCta = true }: Props) {
 
         {showCta && (
           <div className={`${styles.foot} reveal`}>
-            <Link className={styles.cta} href="/proof">
+            <Link className={styles.cta} href="/proof#case-studies">
               See our case studies
               <span aria-hidden="true">→</span>
             </Link>

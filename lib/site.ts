@@ -32,12 +32,6 @@ export type NavLink = {
 export const nav: NavLink[] = [
   { href: "/process", label: "Process" },
   { href: "/proof", label: "Proof" },
-  {
-    label: "Resources",
-    children: [
-      { href: "/blogs", label: "Blogs", description: "Production case studies & engineering breakdowns" },
-    ],
-  },
   { href: "/engage", label: "How we engage" },
   { href: "/masterclass", label: "Masterclass" },
 ];

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import ArticleCta from "@/components/home/ArticleCta";
 import BookCta from "@/components/home/BookCta";
 import HomeNav from "@/components/home/HomeNav";
 import shell from "../../home.module.css";
@@ -260,6 +261,8 @@ export default function SqlRagCaseStudyPage() {
               before release.
             </p>
           </section>
+
+            <ArticleCta />
 
           {/* Section 5: Human feedback */}
           <section className={styles.section}>

@@ -30,97 +30,119 @@
   line-height: 1.68;
 }
 
-/* ---------- full case studies ---------- */
-.detail {
-  padding: clamp(80px, 10vh, 120px) 0;
-  background: var(--v2-bg-soft);
-  border-top: 1px solid var(--v2-line);
-}
-
+/* the breakdown grid still needs the shared width wrapper */
 .inner {
   width: var(--v2-shell);
   margin: 0 auto;
 }
 
-.list {
-  display: grid;
-  gap: 12px;
-  margin-top: 34px;
+/* ---------- long-form engineering breakdowns (moved off Resources) ---------- */
+.reads {
+  padding: clamp(80px, 10vh, 118px) 0;
+  background: var(--v2-bg);
+  border-top: 1px solid var(--v2-line);
 }
 
-.case {
-  display: grid;
-  grid-template-columns: minmax(0, .34fr) minmax(0, 1fr);
-  gap: 40px;
-  padding: 34px 36px;
-  border: 1px solid var(--v2-line);
-  border-radius: 22px;
-  background: var(--v2-panel);
-  transition: border-color .3s ease;
+.readsTitle {
+  margin: 16px 0 0;
+  font-family: var(--font-display), var(--font-inter), sans-serif;
+  font-size: clamp(26px, 3.2vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  font-weight: 500;
+  color: var(--v2-ink);
 }
-.case:hover { border-color: var(--v2-line-2); }
 
-.caseAside {
+.readGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 38px;
+}
+
+.read {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--v2-line);
+  border-radius: 20px;
+  background: var(--v2-panel);
+  transition: border-color .3s ease, transform .3s cubic-bezier(.16, 1, .3, 1);
 }
-.caseSector {
+.read:hover { border-color: var(--v2-line-2); transform: translateY(-3px); }
+
+.readMedia {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--v2-panel-2);
+  border-bottom: 1px solid var(--v2-line);
+}
+.readThumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.readBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px 22px 22px;
+}
+
+.readMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-mono), monospace;
   font-size: 10px;
-  letter-spacing: .14em;
+  letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--v2-dim-2);
 }
-.caseMetric {
-  margin-top: 16px;
-  font-family: var(--font-display), var(--font-inter), sans-serif;
-  font-size: clamp(30px, 3vw, 42px);
-  line-height: 1;
-  letter-spacing: -.03em;
-  font-weight: 600;
+.readPill {
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(59, 130, 246, .35);
+  background: rgba(59, 130, 246, .12);
   color: var(--v2-accent);
 }
-.caseMetricLabel {
-  margin-top: 12px;
-  color: var(--v2-dim);
-  font-size: 13.5px;
-  line-height: 1.5;
-}
 
-.caseBody h2 {
-  margin: 0;
-  font-family: var(--font-display), var(--font-inter), sans-serif;
-  font-size: clamp(20px, 2vw, 25px);
-  line-height: 1.25;
+.readHeading {
+  margin: 16px 0 0;
+  font-size: 17px;
+  line-height: 1.32;
   letter-spacing: -.02em;
   font-weight: 600;
   color: var(--v2-ink);
 }
-.caseBody p {
-  margin: 14px 0 0;
+.readHeading a { color: inherit; }
+.readHeading a:hover { color: var(--v2-accent); }
+
+.readExcerpt {
+  margin: 11px 0 0;
   color: var(--v2-dim);
-  font-size: 15px;
-  line-height: 1.7;
-}
-
-.caseWhy {
-  margin-top: 22px;
-  padding-top: 18px;
-  border-top: 1px solid var(--v2-line);
-  color: var(--v2-dim-2);
   font-size: 13.5px;
-  line-height: 1.62;
-}
-.caseWhy span {
-  display: block;
-  margin-bottom: 8px;
-  font-family: var(--font-mono), monospace;
-  font-size: 10px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--v2-accent);
+  line-height: 1.6;
 }
 
-@media (max-width: 860px) {
-  .case { grid-template-columns: 1fr; gap: 22px; padding: 26px 22px; }
+.readMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  padding-top: 20px;
+  color: var(--v2-accent);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.readMore:hover { text-decoration: underline; }
+
+@media (max-width: 980px) {
+  .readGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .readGrid { grid-template-columns: 1fr; }
 }

@@ -173,13 +173,7 @@ export const homeNav: {
   children?: { href: string; label: string; description?: string }[];
 }[] = [
   { href: "/#why", label: "Why" },
+  { href: "/proof", label: "Proof" },
   { href: "/#sprint", label: "Sprint" },
   { href: "/impact", label: "Impact" },
-  { href: "/proof", label: "Proof" },
-  {
-    label: "Resources",
-    children: [
-      { href: "/blogs", label: "Blogs", description: "Production case studies & engineering breakdowns" },
-    ],
-  },
 ];

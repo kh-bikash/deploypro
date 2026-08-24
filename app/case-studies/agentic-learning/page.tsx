@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import ArticleCta from "@/components/home/ArticleCta";
 import BookCta from "@/components/home/BookCta";
 import HomeNav from "@/components/home/HomeNav";
 import shell from "../../home.module.css";
@@ -351,6 +352,8 @@ export default function AgenticLearningCaseStudyPage() {
 
             <p>This makes evaluation a product-design problem, not merely a model benchmark.</p>
           </section>
+
+            <ArticleCta />
 
           {/* Section 7: Teacher amplification was the core design principle */}
           <section className={styles.section}>
