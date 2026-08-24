@@ -1,0 +1,187 @@
+.section {
+  padding: clamp(90px, 12vh, 140px) 0;
+  background: var(--v2-bg);
+}
+
+.card {
+  width: min(1080px, calc(100vw - 48px));
+  margin: 0 auto;
+  padding: clamp(38px, 5vw, 72px);
+  border-radius: 30px;
+  border: 1px solid var(--v2-line);
+  background: linear-gradient(160deg, #131314 0%, #0d0d0e 62%);
+  text-align: center;
+}
+
+.kicker {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--v2-accent);
+}
+
+.title {
+  max-width: 780px;
+  margin: 20px auto 0;
+  font-family: var(--font-display), var(--font-inter), sans-serif;
+  font-size: clamp(26px, 3.2vw, 42px);
+  line-height: 1.22;
+  letter-spacing: -.02em;
+  font-weight: 500;
+  color: var(--v2-ink);
+}
+/* the emphasis carries in colour alone — no block, no italic */
+.title em {
+  font-style: normal;
+  color: var(--v2-accent);
+}
+
+/* ---------- the compare block ---------- */
+.compare {
+  position: relative;
+  /* narrow and centred, so the wipe has a short, readable travel */
+  width: min(660px, 100%);
+  margin: 48px auto 0;
+  text-align: left;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: ew-resize;
+}
+
+.layer {
+  display: grid;
+  grid-template-rows: auto repeat(4, 1fr);
+}
+/* the "before" column is painted over the "after" one and wiped away */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #131314 0%, #0d0d0e 62%);
+  clip-path: inset(0 calc(100% - var(--x, 50%)) 0 0);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 18px;
+  border-bottom: 1px solid var(--v2-line-2);
+}
+
+/* a proper column label: pill-highlighted, white and bold rather than a
+   whispered mono caption. Both sides share the metrics so the two layers
+   stay row-aligned through the wipe. */
+.headLabel {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--v2-line-2);
+  background: rgba(255, 255, 255, .07);
+  font-family: var(--font-display), var(--font-inter), sans-serif;
+  font-size: clamp(14px, 1.4vw, 16.5px);
+  font-weight: 600;
+  letter-spacing: -.015em;
+  line-height: 1.2;
+  color: var(--v2-ink);
+  white-space: nowrap;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 84px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--v2-line);
+  text-align: center;
+}
+.row p {
+  margin: 0;
+  max-width: 430px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.mark {
+  flex: 0 0 auto;
+  width: 18px;
+  font-family: var(--font-mono), monospace;
+  font-size: 14px;
+}
+
+/* before — struck through and greyed out */
+.before .mark { color: #55555a; }
+.before .row p {
+  color: #77777b;
+  text-decoration: line-through;
+  text-decoration-color: rgba(150, 150, 155, .5);
+  text-decoration-thickness: 1px;
+}
+
+/* after — lit, with an arrow instead of a cross; its label carries the accent */
+.after .headLabel {
+  border-color: rgba(59, 130, 246, .45);
+  background: rgba(59, 130, 246, .14);
+}
+.after .mark { color: var(--v2-accent); }
+.after .row p { color: var(--v2-ink); }
+
+.handle {
+  position: absolute;
+  z-index: 6;
+  top: 0;
+  bottom: 0;
+  left: var(--x, 50%);
+  width: 1px;
+  background: var(--v2-line-2);
+}
+.grip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--v2-glass-line);
+  background: var(--v2-glass);
+  backdrop-filter: var(--v2-blur);
+  -webkit-backdrop-filter: var(--v2-blur);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .08);
+  color: var(--v2-ink);
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  letter-spacing: -.08em;
+  cursor: ew-resize;
+  transition: border-color .2s ease, transform .2s ease, background .2s ease;
+}
+.grip:hover, .grip:focus-visible {
+  background: var(--v2-glass-hi);
+  border-color: rgba(255, 255, 255, .26);
+  transform: translate(-50%, -50%) scale(1.08);
+  outline: none;
+}
+
+.hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 22px;
+  color: var(--v2-dim-2);
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.hint i { display: inline-block; width: 22px; height: 1px; background: var(--v2-line-2); }
+
+@media (max-width: 820px) {
+  /* stack the columns on touch — no wiping */
+  .compare { width: 100%; cursor: default; }
+  .overlay { position: static; clip-path: none; margin-top: 30px; }
+  .handle, .hint { display: none; }
+  .row { min-height: 0; padding: 14px 10px; }
+}

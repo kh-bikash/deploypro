@@ -996,9 +996,10 @@ button { cursor:pointer; }
 }
 .final .primary { margin-top:28px; }
 
+/* The footer is a component with its own module styles now; this bare element
+   rule only fought it (its 34px bottom padding showed as a strip below the
+   panel). Left neutral rather than deleted so nothing else shifts. */
 footer {
-  border-top:1px solid #ececef;
-  padding:26px 0 34px;
   color:#86868b;
   font-size:11px;
 }
@@ -5735,4 +5736,90 @@ body { font-size: 17px; }
   .partner span { font-size: 16px; }
   .sketch-bar { padding: 11px 14px; }
   .sketch-bar em { font-size: 9.5px; }
+}
+
+
+
+
+/* ==========================================================
+   V17 — DEPLOY DARK TOKENS
+   The homepage is built from CSS-module components and paints
+   its own dark canvas (see app/home.module.css), so only the
+   shared tokens live here and the inner pages keep the light
+   system untouched.
+
+   Type roles: bold grotesk for headlines, an italic serif for
+   the one emphasised word, monospace for micro-labels only.
+   ========================================================== */
+
+:root{
+  --v2-bg:#0a0a0b;
+  --v2-bg-soft:#0d0d0e;
+  --v2-panel:#111112;
+  --v2-panel-2:#161618;
+  --v2-line:rgba(255,255,255,.07);
+  --v2-line-2:rgba(255,255,255,.14);
+  --v2-ink:#f3f0e8;
+  --v2-dim:#9b9b9b;
+  --v2-dim-2:#6b6b6d;
+  --v2-accent:#3b82f6;
+
+  /* frosted chrome */
+  --v2-glass:rgba(255,255,255,.06);
+  --v2-glass-hi:rgba(255,255,255,.10);
+  --v2-glass-line:rgba(255,255,255,.12);
+  --v2-blur:blur(20px) saturate(150%);
+
+  --v2-shell:min(1200px,calc(100vw - 48px));
+}
+
+/* ---------- micro-interaction: blue light chasing a button's edge ----------
+   The ring is a conic gradient masked down to a 1.5px border. Registering the
+   angle lets it interpolate; where @property is unsupported the gradient just
+   sits still, which still reads as a subtle blue edge. */
+@property --chase-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.btn-chase {
+  position: relative;
+  isolation: isolate;
+}
+.btn-chase::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--chase-angle),
+    transparent 0 58%,
+    rgba(59, 130, 246, .22) 72%,
+    #3b82f6 86%,
+    rgba(59, 130, 246, .22) 94%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+}
+.btn-chase:hover::after,
+.btn-chase:focus-visible::after {
+  opacity: 1;
+  animation: chaseSpin 1.9s linear infinite;
+}
+@keyframes chaseSpin {
+  to { --chase-angle: 360deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-chase:hover::after,
+  .btn-chase:focus-visible::after { animation: none; }
 }

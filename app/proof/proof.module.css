@@ -1,0 +1,126 @@
+.head {
+  width: min(760px, calc(100vw - 48px));
+  margin: 0 auto;
+  padding: clamp(56px, 8vh, 96px) 0 clamp(20px, 3vh, 36px);
+  text-align: center;
+}
+
+.kicker {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--v2-accent);
+}
+
+.title {
+  margin: 18px 0 0;
+  font-family: var(--font-display), var(--font-inter), sans-serif;
+  font-size: clamp(34px, 5vw, 62px);
+  line-height: 1.06;
+  letter-spacing: -.03em;
+  font-weight: 500;
+  color: var(--v2-ink);
+}
+
+.lead {
+  margin: 20px 0 0;
+  color: var(--v2-dim);
+  font-size: 16px;
+  line-height: 1.68;
+}
+
+/* ---------- full case studies ---------- */
+.detail {
+  padding: clamp(80px, 10vh, 120px) 0;
+  background: var(--v2-bg-soft);
+  border-top: 1px solid var(--v2-line);
+}
+
+.inner {
+  width: var(--v2-shell);
+  margin: 0 auto;
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.case {
+  display: grid;
+  grid-template-columns: minmax(0, .34fr) minmax(0, 1fr);
+  gap: 40px;
+  padding: 34px 36px;
+  border: 1px solid var(--v2-line);
+  border-radius: 22px;
+  background: var(--v2-panel);
+  transition: border-color .3s ease;
+}
+.case:hover { border-color: var(--v2-line-2); }
+
+.caseAside {
+  display: flex;
+  flex-direction: column;
+}
+.caseSector {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--v2-dim-2);
+}
+.caseMetric {
+  margin-top: 16px;
+  font-family: var(--font-display), var(--font-inter), sans-serif;
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1;
+  letter-spacing: -.03em;
+  font-weight: 600;
+  color: var(--v2-accent);
+}
+.caseMetricLabel {
+  margin-top: 12px;
+  color: var(--v2-dim);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.caseBody h2 {
+  margin: 0;
+  font-family: var(--font-display), var(--font-inter), sans-serif;
+  font-size: clamp(20px, 2vw, 25px);
+  line-height: 1.25;
+  letter-spacing: -.02em;
+  font-weight: 600;
+  color: var(--v2-ink);
+}
+.caseBody p {
+  margin: 14px 0 0;
+  color: var(--v2-dim);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.caseWhy {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--v2-line);
+  color: var(--v2-dim-2);
+  font-size: 13.5px;
+  line-height: 1.62;
+}
+.caseWhy span {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--v2-accent);
+}
+
+@media (max-width: 860px) {
+  .case { grid-template-columns: 1fr; gap: 22px; padding: 26px 22px; }
+}

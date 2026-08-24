@@ -1,0 +1,166 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 150px 0 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: var(--v2-bg);
+}
+
+.glow {
+  position: absolute;
+  z-index: 0;
+  inset: -25% -10% auto -10%;
+  height: 130%;
+  pointer-events: none;
+  /* Kept faint — the veil canvas carries the colour now. This also stands in
+     for it when WebGL is unavailable. */
+  background:
+    radial-gradient(52% 40% at 50% 6%, rgba(59, 130, 246, .07), transparent 64%),
+    radial-gradient(60% 46% at 50% 60%, rgba(255, 255, 255, .028), transparent 66%);
+  animation: breathe 16s ease-in-out infinite;
+}
+@keyframes breathe { 50% { opacity: .62; transform: translateY(16px); } }
+
+.grid {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .018) 1px, transparent 1px);
+  background-size: 110px 110px;
+  mask-image: radial-gradient(circle at 50% 34%, #000 0%, rgba(0, 0, 0, .5) 46%, transparent 76%);
+  -webkit-mask-image: radial-gradient(circle at 50% 34%, #000 0%, rgba(0, 0, 0, .5) 46%, transparent 76%);
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  width: var(--v2-shell);
+  margin: 0 auto;
+}
+
+/* ---------- headline: the DEPLOY acronym ---------- */
+.title {
+  margin: 0;
+  font-family: var(--font-display), var(--font-inter), sans-serif;
+  font-size: clamp(54px, 11vw, 158px);
+  letter-spacing: -.02em;
+  /* a notch above the section headings — six isolated capitals need it */
+  font-weight: 600;
+  color: var(--v2-ink);
+}
+
+.lead {
+  max-width: 640px;
+  margin: 40px auto 0;
+  color: var(--v2-dim);
+  font-size: 17.5px;
+  line-height: 1.62;
+  opacity: 0;
+  animation: rise .8s .48s cubic-bezier(.16, 1, .3, 1) forwards;
+}
+.lead b { color: var(--v2-ink); font-weight: 500; }
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 38px;
+  opacity: 0;
+  animation: rise .8s .6s cubic-bezier(.16, 1, .3, 1) forwards;
+}
+.primary,
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 30px;
+  border-radius: 999px;
+  font-size: 15.5px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  transition: transform .22s ease, background .22s ease, box-shadow .22s ease,
+    border-color .22s ease;
+}
+.primary {
+  background: var(--v2-ink);
+  color: #101011;
+}
+.primary:hover {
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(243, 240, 232, .18);
+}
+/* the glass button from the reference */
+.ghost {
+  border: 1px solid var(--v2-glass-line);
+  background: var(--v2-glass);
+  backdrop-filter: var(--v2-blur);
+  -webkit-backdrop-filter: var(--v2-blur);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07);
+  color: var(--v2-ink);
+}
+.ghost:hover {
+  background: var(--v2-glass-hi);
+  border-color: rgba(255, 255, 255, .22);
+  transform: translateY(-2px);
+}
+
+/* ---------- big stat row ---------- */
+.stats {
+  position: relative;
+  z-index: 2;
+  width: var(--v2-shell);
+  margin: clamp(70px, 10vh, 130px) auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  text-align: center;
+  opacity: 0;
+  animation: rise .8s .74s cubic-bezier(.16, 1, .3, 1) forwards;
+}
+.stat strong {
+  display: block;
+  font-family: var(--font-display), var(--font-inter), sans-serif;
+  font-size: clamp(32px, 3.6vw, 46px);
+  line-height: 1;
+  letter-spacing: -.02em;
+  font-weight: 600;
+  color: var(--v2-ink);
+}
+.stat span {
+  display: block;
+  margin-top: 12px;
+  color: var(--v2-dim-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 860px) {
+  .hero { min-height: 0; padding: 130px 0 40px; }
+  .title { font-size: clamp(44px, 13vw, 84px); }
+  .lead { font-size: 15.5px; }
+  .stats { grid-template-columns: 1fr; gap: 26px; }
+  .stat strong { font-size: 30px; }
+}
+@media (max-width: 560px) {
+  .actions { flex-direction: column; align-items: stretch; }
+  .primary, .ghost { justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lead, .actions, .stats { opacity: 1; animation: none; }
+  .glow { animation: none; }
+}

@@ -1,0 +1,112 @@
+.footer {
+  position: relative;
+  padding: 0;
+  background: var(--v2-bg);
+  border-top: 1px solid var(--v2-line);
+}
+
+/* ---------- footer body sits on a slightly lifted panel ---------- */
+.body {
+  background: var(--v2-bg-soft);
+  border-top: 1px solid var(--v2-line);
+}
+
+.inner {
+  width: var(--v2-shell);
+  margin: 0 auto;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 56px;
+  padding: 64px 0 52px;
+}
+
+.brand em {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--v2-ink);
+}
+
+.about {
+  max-width: 300px;
+  margin: 18px 0 0;
+  color: var(--v2-dim);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+.social {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--v2-line-2);
+  color: var(--v2-dim);
+  transition: color .22s ease, border-color .22s ease, background .22s ease,
+    transform .22s ease;
+}
+.social svg { width: 15px; height: 15px; fill: currentColor; }
+.social:hover {
+  color: var(--v2-ink);
+  border-color: rgba(255, 255, 255, .3);
+  background: var(--v2-glass);
+  transform: translateY(-2px);
+}
+
+/* ---------- link columns ---------- */
+.cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 34px;
+}
+
+.col b {
+  display: block;
+  margin-bottom: 18px;
+  color: var(--v2-ink);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+.col a {
+  display: block;
+  padding: 7px 0;
+  color: var(--v2-dim);
+  font-size: 14.5px;
+  transition: color .2s ease;
+}
+.col a:hover { color: var(--v2-ink); }
+
+.legal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 22px 0 30px;
+  border-top: 1px solid var(--v2-line);
+  color: var(--v2-dim-2);
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: .05em;
+}
+
+@media (max-width: 860px) {
+  .top { grid-template-columns: 1fr; gap: 38px; padding: 48px 0 38px; }
+  .cols { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .legal { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+@media (max-width: 480px) {
+  .cols { grid-template-columns: 1fr; }
+}

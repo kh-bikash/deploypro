@@ -1,33 +1,22 @@
-import BrandFilm from "@/components/BrandFilm";
-import DeliveryPhases from "@/components/DeliveryPhases";
-import Evidence from "@/components/Evidence";
-import FinalCta from "@/components/FinalCta";
-import Hero from "@/components/Hero";
-import HomeMotion from "@/components/HomeMotion";
-import HowItWorks from "@/components/HowItWorks";
-import Integrations from "@/components/Integrations";
-import Pod from "@/components/Pod";
-import Principles from "@/components/Principles";
-import Results from "@/components/Results";
-import Studio from "@/components/Studio";
-import Versus from "@/components/Versus";
+import BookCta from "@/components/home/BookCta";
+import Faq from "@/components/home/Faq";
+import Gap from "@/components/home/Gap";
+import Hero from "@/components/home/Hero";
+import Manifesto from "@/components/home/Manifesto";
+import Sprint from "@/components/home/Sprint";
+import Work from "@/components/home/Work";
+import styles from "./home.module.css";
 
 export default function HomePage() {
   return (
-    <>
+    <div className={styles.shell}>
       <Hero />
-      <Evidence />
-      <Results />
-      <BrandFilm />
-      <Pod />
-      <Studio />
-      <Integrations />
-      <DeliveryPhases />
-      <HowItWorks />
-      <Principles />
-      <Versus />
-      <FinalCta />
-      <HomeMotion />
-    </>
+      <Manifesto />
+      <Work />
+      <Gap />
+      <Sprint />
+      <BookCta />
+      <Faq />
+    </div>
   );
 }

@@ -1,0 +1,67 @@
+.wheel {
+  position: relative;
+  overflow: hidden;
+  perspective: 900px;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 9%, #000 91%, transparent);
+}
+.wheel:active { cursor: grabbing; }
+/* scroll owns the position — no grab affordance */
+.wheel[data-scroll-driven] { cursor: default; }
+.wheel:focus-visible { outline: none; }
+
+.stack {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  will-change: transform, opacity, filter;
+}
+
+@media (max-width: 560px) {
+  .item { font-size: .68em; }
+}
+
+/* thin rail marking the selected row */
+.rail {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 0;
+  pointer-events: none;
+  border-top: 1px solid var(--v2-line);
+}
+.rail::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 34px;
+  height: 1px;
+  background: var(--v2-accent);
+}

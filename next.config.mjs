@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Lets a verification build write somewhere else, so it does not wipe the
+  // .next a running dev server is using: NEXT_DIST_DIR=.next-build npm run build
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   images: {
     remotePatterns: [{ protocol: "https", hostname: "www.google.com", pathname: "/s2/favicons" }],
   },

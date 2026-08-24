@@ -14,21 +14,6 @@ export const problemStats = [
     claim: "of companies abandoned most of their AI initiatives in 2025 — up from 17% the year before.",
     source: "S&P Global, 2025",
   },
-  {
-    figure: "40%+",
-    claim: "of agentic AI projects will be cancelled by 2027 — cost, unclear value, weak controls.",
-    source: "Gartner, June 2025",
-  },
-  {
-    figure: "27%",
-    claim: "of Indian enterprises have AI agents in production; 31% are still stuck at the POC stage.",
-    source: "NASSCOM, 2025",
-  },
-  {
-    figure: "1M",
-    claim: "AI professionals short: India needs ~2.3M by 2027 against a supply of ~1.25M.",
-    source: "NASSCOM–Deloitte, 2025",
-  },
 ];
 
 export const podRoles = [
@@ -509,13 +494,6 @@ export const headlineResults = [
     context: "An adaptive learning platform that personalises to each learner's pace.",
     tag: "Education",
   },
-  {
-    value: 1000,
-    suffix: "+",
-    label: "developers engaged at launch",
-    context: "Developer relations for a new LLM family, through the launch window.",
-    tag: "DevRel",
-  },
 ];
 
 export const studioBlocks = [
@@ -553,49 +531,3 @@ export const studioBlocks = [
   },
 ];
 
-export const useLessAI = [
-  {
-    title: "A status lookup is a query, not a prompt",
-    body: "If the answer lives in a database row, we read the row. Asking a model to guess at data you already hold is slower, costlier and wrong often enough to matter.",
-  },
-  {
-    title: "Rules that are written down stay code",
-    body: "Approval thresholds, routing logic, SLA windows, tax rules — these are policy, not judgment. Code makes them auditable, testable and changeable without a prompt rewrite.",
-  },
-  {
-    title: "Models handle the genuinely ambiguous part",
-    body: "Reading intent from a customer email. Weighing conflicting context. Drafting language a person will actually send. That is where a model earns its cost, and nowhere else.",
-  },
-  {
-    title: "Every model call ships with its evaluation",
-    body: "If we cannot test it systematically, we cannot claim it works. Eval suites are written alongside the workflow, so a model upgrade is a test run rather than a leap of faith.",
-  },
-];
-
-export const versusInHouse = [
-  {
-    dimension: "Starting point",
-    inhouse: "Engineers learning retrieval, agents and evaluation from scratch, on top of a full roadmap.",
-    deploy: "Patterns already shipped across hundreds of AI applications, reused from engagement one.",
-  },
-  {
-    dimension: "The people",
-    inhouse: "Hiring a senior AI engineer into a market short around a million professionals.",
-    deploy: "A pod that starts on your workflow immediately, from a bench we already trained.",
-  },
-  {
-    dimension: "What gets built",
-    inhouse: "A demo that proves the model can respond, and usually stops there.",
-    deploy: "A system with auth, approvals, evals, observability and failure handling.",
-  },
-  {
-    dimension: "Accountability",
-    inhouse: "Split across a team that also owns the product roadmap.",
-    deploy: "Two people accountable for one named workflow, measured on your baseline.",
-  },
-  {
-    dimension: "What is left behind",
-    inhouse: "Knowledge that lives in one engineer's head until they change teams.",
-    deploy: "Documentation, evaluations, a transfer pack and a team coached to extend it.",
-  },
-];

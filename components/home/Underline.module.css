@@ -1,0 +1,30 @@
+/* A pen-stroke underline drawn as a background image rather than a positioned
+   SVG child. An inline element that wraps across lines is split into fragments,
+   and an absolutely-positioned child can only anchor to one of them — which
+   left a stray mark floating mid-headline. A background with
+   box-decoration-break:clone is drawn per fragment, so every line gets its own
+   stroke and nothing escapes.
+
+   The stroke colour is baked into the data URI (custom properties cannot be
+   read from inside one) — it matches --v2-accent. */
+.wrap {
+  display: inline;
+  font-style: normal;
+  color: inherit;
+  padding-bottom: .16em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 16' preserveAspectRatio='none'%3E%3Cpath d='M3,10 C52,4 104,13 152,7 C201,2 249,12 297,5' fill='none' stroke='%233b82f6' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M6,14 C58,9 108,15 156,11 C204,7 252,14 295,10' fill='none' stroke='%233b82f6' stroke-width='3' stroke-linecap='round' opacity='0.45'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% .3em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size .68s cubic-bezier(.62, .04, .3, 1);
+}
+
+.wrap.drawn {
+  background-size: 100% .3em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wrap { transition: none; }
+}

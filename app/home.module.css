@@ -1,0 +1,18 @@
+/* The dark canvas for the homepage only — the inner pages stay on the light system. */
+.shell {
+  background: var(--v2-bg);
+  color: var(--v2-ink);
+  color-scheme: dark;
+}
+.shell ::selection {
+  background: var(--v2-ink);
+  color: var(--v2-bg);
+}
+
+/* standalone routes start under the fixed nav rather than behind it */
+.routeTop {
+  padding-top: 84px;
+}
+@media (max-width: 1000px) {
+  .routeTop { padding-top: 72px; }
+}
