@@ -20,6 +20,7 @@ const COLUMNS = [
       { label: "Why FDE", href: "/#why" },
       { label: "The sprint", href: "/#sprint" },
       { label: "Impact", href: "/impact" },
+      { label: "Case Studies", href: "/case-studies" },
       { label: "FAQ", href: "/#faq" },
     ],
   },

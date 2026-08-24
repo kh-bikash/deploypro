@@ -166,10 +166,13 @@ export default function Aurora({
       return;
     }
 
+    const canvas = gl.canvas as HTMLCanvasElement;
+    if (!canvas || !(canvas instanceof HTMLCanvasElement)) return;
+
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-    gl.canvas.style.backgroundColor = "transparent";
+    canvas.style.backgroundColor = "transparent";
 
     const geometry = new Triangle(gl);
     // the vertex shader declares no uv attribute
@@ -194,15 +197,15 @@ export default function Aurora({
     });
 
     const mesh = new Mesh(gl, { geometry, program });
-    host.appendChild(gl.canvas);
+    host.appendChild(canvas);
 
     const resize = () => {
       const w = host.offsetWidth || 1;
       const h = host.offsetHeight || 1;
       renderer.setSize(w, h);
       // setSize stamps inline px on the canvas; let the stylesheet own display size
-      gl.canvas.style.width = "";
-      gl.canvas.style.height = "";
+      canvas.style.width = "";
+      canvas.style.height = "";
       program.uniforms.uResolution.value = [gl.drawingBufferWidth, gl.drawingBufferHeight];
     };
     resize();
@@ -223,7 +226,7 @@ export default function Aurora({
       draw(900);
       return () => {
         resizeObserver.disconnect();
-        if (gl.canvas.parentNode === host) host.removeChild(gl.canvas);
+        if (canvas.parentNode === host) host.removeChild(canvas);
         gl.getExtension("WEBGL_lose_context")?.loseContext();
       };
     }
@@ -262,7 +265,7 @@ export default function Aurora({
       observer.disconnect();
       resizeObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
-      if (gl.canvas.parentNode === host) host.removeChild(gl.canvas);
+      if (canvas.parentNode === host) host.removeChild(canvas);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
     // colorStops/blend/speed are read live through propsRef

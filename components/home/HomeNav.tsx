@@ -41,11 +41,35 @@ export default function HomeNav() {
         </div>
 
         <nav className={styles.links} aria-label="Primary">
-          {homeNav.map((item) => (
-            <Link key={item.href} href={item.href}>
-              {item.label}
-            </Link>
-          ))}
+          {homeNav.map((item) =>
+            item.children ? (
+              <div key={item.label} className={styles.dropdownItem}>
+                <Link href={item.href} className={styles.dropdownTrigger}>
+                  <span>{item.label}</span>
+                  <span className={styles.dropdownChevron} aria-hidden="true">
+                    ▼
+                  </span>
+                </Link>
+                <div className={styles.dropdownMenu}>
+                  {item.children.map((child) => (
+                    <Link key={child.href} href={child.href} className={styles.dropdownLink}>
+                      <span className={styles.dropdownTitle}>
+                        {child.label}
+                        <i aria-hidden="true" style={{ fontStyle: "normal", fontSize: "10px", opacity: 0.6 }}>↗</i>
+                      </span>
+                      {child.description && (
+                        <span className={styles.dropdownDesc}>{child.description}</span>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ),
+          )}
         </nav>
 
         <a className={`${styles.cta} btn-chase`} href="#book">
@@ -65,9 +89,25 @@ export default function HomeNav() {
 
       <div className={open ? `${styles.mobile} ${styles.open}` : styles.mobile}>
         {homeNav.map((item) => (
-          <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
-            {item.label}
-          </Link>
+          <div key={item.label}>
+            <Link href={item.href} onClick={() => setOpen(false)}>
+              {item.label}
+            </Link>
+            {item.children && (
+              <div className={styles.mobileSubList}>
+                {item.children.map((child) => (
+                  <Link
+                    key={child.href}
+                    href={child.href}
+                    className={styles.mobileSubLink}
+                    onClick={() => setOpen(false)}
+                  >
+                    ↳ {child.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
         <a href="#book" onClick={() => setOpen(false)}>
           Book a call

@@ -6,6 +6,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: site.url, lastModified: now, priority: 1 },
+    { url: `${site.url}/case-studies`, lastModified: now, priority: 0.9 },
+    { url: `${site.url}/case-studies/sql-rag`, lastModified: now, priority: 0.9 },
+    { url: `${site.url}/case-studies/ai-interviewer`, lastModified: now, priority: 0.9 },
+    { url: `${site.url}/case-studies/agentic-learning`, lastModified: now, priority: 0.9 },
     { url: `${site.url}/process`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/proof`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/engage`, lastModified: now, priority: 0.8 },

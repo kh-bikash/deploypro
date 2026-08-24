@@ -33,7 +33,7 @@ export default function Nav({ variant = "solid" }: Props) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={pathname === item.href ? "current" : undefined}
+                className={pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)) ? "current" : undefined}
                 aria-current={pathname === item.href ? "page" : undefined}
               >
                 {item.label}
@@ -59,9 +59,18 @@ export default function Nav({ variant = "solid" }: Props) {
 
       <div className={open ? "nav-mobile open" : "nav-mobile"}>
         {nav.map((item) => (
-          <Link key={item.href} href={item.href}>
-            {item.label}
-          </Link>
+          <div key={item.href}>
+            <Link href={item.href}>{item.label}</Link>
+            {item.children && (
+              <div style={{ paddingLeft: "16px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                {item.children.map((child) => (
+                  <Link key={child.href} href={child.href} style={{ fontSize: "13px", opacity: 0.8 }}>
+                    ↳ {child.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
         <Link href="/#start">Start a conversation</Link>
       </div>

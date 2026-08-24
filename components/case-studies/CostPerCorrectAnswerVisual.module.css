@@ -1,0 +1,192 @@
+.container {
+  margin: 32px 0;
+  padding: 28px 32px;
+  background: var(--v2-panel);
+  border: 1px solid var(--v2-line);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.standalone {
+  margin: 0;
+  width: 100%;
+  max-width: 1400px;
+  aspect-ratio: 16 / 9;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kicker {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--v2-accent);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display), var(--font-inter), sans-serif;
+  font-size: clamp(20px, 2.2vw, 24px);
+  font-weight: 600;
+  color: var(--v2-ink);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--v2-dim);
+  max-width: 760px;
+}
+
+.compareGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.card {
+  background: var(--v2-bg);
+  border: 1px solid var(--v2-line);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.cardActive {
+  border-color: rgba(59, 130, 246, 0.35);
+  background: rgba(59, 130, 246, 0.03);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--v2-line);
+  padding-bottom: 10px;
+}
+
+.badgeMuted {
+  font-family: var(--font-mono), monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  color: var(--v2-dim-2);
+}
+
+.badgeActive {
+  font-family: var(--font-mono), monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  color: var(--v2-accent);
+  font-weight: 500;
+}
+
+.tokenStat {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  color: var(--v2-dim-2);
+}
+
+.tokenStatActive {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  color: #10b981;
+  font-weight: 600;
+}
+
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+  color: var(--v2-dim);
+}
+
+.step strong {
+  color: var(--v2-ink);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.step span {
+  font-size: 12px;
+  color: var(--v2-dim-2);
+  line-height: 1.4;
+}
+
+.stepActive {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+  color: var(--v2-dim);
+}
+
+.stepActive strong {
+  color: var(--v2-ink);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.stepActive span {
+  font-size: 12px;
+  color: var(--v2-dim);
+  line-height: 1.4;
+}
+
+.cardFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--v2-line);
+  padding-top: 12px;
+  font-size: 12px;
+  color: var(--v2-dim-2);
+}
+
+.footMuted {
+  font-family: var(--font-mono), monospace;
+  color: var(--v2-dim);
+  font-weight: 400;
+}
+
+.cardFootActive {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(59, 130, 246, 0.2);
+  padding-top: 12px;
+  font-size: 12px;
+  color: var(--v2-dim);
+}
+
+.footGreen {
+  font-family: var(--font-mono), monospace;
+  color: #10b981;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .compareGrid {
+    grid-template-columns: 1fr;
+  }
+}

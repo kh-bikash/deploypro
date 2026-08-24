@@ -23,9 +23,22 @@ export const socials = [
   { name: "GitHub", href: "https://github.com/satvik314" },
 ];
 
-export const nav = [
+export type NavLink = {
+  href: string;
+  label: string;
+  children?: { href: string; label: string; description?: string }[];
+};
+
+export const nav: NavLink[] = [
   { href: "/process", label: "Process" },
   { href: "/proof", label: "Proof" },
+  {
+    href: "/blogs",
+    label: "Resources",
+    children: [
+      { href: "/blogs", label: "Blogs", description: "Engineering insights & case studies" },
+    ],
+  },
   { href: "/engage", label: "How we engage" },
   { href: "/masterclass", label: "Masterclass" },
 ];
