@@ -67,8 +67,13 @@
   flex: 0 0 auto;
   width: 16px;
   height: 16px;
-  color: var(--v2-accent);
+  color: var(--v2-dim-2);
+  transition: color .25s ease;
 }
+/* lifts to full ink on hover and while open, so it still reads as live */
+.q:hover .sign,
+.q:focus-visible .sign,
+.item.open .sign { color: var(--v2-ink); }
 .sign::before,
 .sign::after {
   content: "";
