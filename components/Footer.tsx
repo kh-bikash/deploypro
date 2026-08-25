@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { site, socials } from "@/lib/site";
 import styles from "./Footer.module.css";
@@ -18,19 +19,17 @@ const COLUMNS = [
     title: "Program",
     links: [
       { label: "Why FDE", href: "/#why" },
+      { label: "Our work", href: "/#work" },
       { label: "The sprint", href: "/#sprint" },
-      { label: "Impact", href: "/impact" },
-      { label: "Case Studies", href: "/case-studies" },
       { label: "FAQ", href: "/#faq" },
     ],
   },
   {
-    title: "Company",
+    title: "Evidence",
     links: [
-      { label: "The process", href: "/process" },
       { label: "Proof", href: "/proof" },
-      { label: "How we engage", href: "/engage" },
-      { label: "FDE Masterclass", href: "/masterclass" },
+      { label: "Case studies", href: "/case-studies" },
+      { label: "Impact", href: "/impact" },
     ],
   },
 ];
@@ -43,10 +42,10 @@ export default function Footer() {
           <div className={styles.top}>
             <div className={styles.brandCol}>
               <div className={styles.brand}>
-                <em>deploy</em>
+                <Image src="/logo.png" alt="DEPLOY" width={303} height={264} />
               </div>
               <p className={styles.about}>
-                Forward-deployed engineers who take one workflow from idea to production — then
+                Forward-deployed engineers who take one workflow from idea to production - then
                 hand it over.
               </p>
 

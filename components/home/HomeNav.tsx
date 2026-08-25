@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { homeNav } from "@/lib/home";
 import { site } from "@/lib/site";
@@ -8,6 +10,10 @@ import styles from "./HomeNav.module.css";
 
 export default function HomeNav() {
   const [open, setOpen] = useState(false);
+  /** the bar is transparent over the hero and takes a background once content
+      starts passing underneath it */
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -17,14 +23,65 @@ export default function HomeNav() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // navigating away should never leave the sheet hanging open
+  useEffect(() => setOpen(false), [pathname]);
+
+  // ...nor should widening past the breakpoint that hides the toggle
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1001px)");
+    const sync = () => mq.matches && setOpen(false);
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  /* An open sheet owns the screen — letting the page scroll behind it is what
+     makes the two look like they are fighting. */
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
+
   return (
-    <header className={styles.nav}>
+    <>
+      {/* Outside the header on purpose: backdrop-filter on the bar would make
+          it the containing block and clip this to the bar's own height. */}
+      {open && (
+        <button
+          className={styles.scrim}
+          type="button"
+          aria-label="Close menu"
+          onClick={() => setOpen(false)}
+        />
+      )}
+
+      <header
+        className={styles.nav}
+      data-solid={scrolled || open ? "true" : "false"}
+      data-open={open ? "true" : "false"}
+    >
       <div className={styles.inner}>
         {/* two separate targets — the wordmark goes home, the parent brand goes
             to Build Fast with AI (nesting anchors would be invalid markup) */}
         <div className={styles.brand}>
           <Link className={styles.mark} href="/">
-            <em>deploy</em>
+            <Image
+              src="/logo.png"
+              alt="DEPLOY"
+              width={303}
+              height={264}
+              priority
+            />
           </Link>
           <span className={styles.by}>
             by{" "}
@@ -76,7 +133,7 @@ export default function HomeNav() {
           )}
         </nav>
 
-        <a className={`${styles.cta} btn-chase`} href="#book">
+        <a className={`${styles.cta} btn-chase`} href="/#book">
           Book a call
         </a>
 
@@ -119,10 +176,11 @@ export default function HomeNav() {
             )}
           </div>
         ))}
-        <a href="#book" onClick={() => setOpen(false)}>
+        <a href="/#book" onClick={() => setOpen(false)}>
           Book a call
         </a>
       </div>
-    </header>
+      </header>
+    </>
   );
 }

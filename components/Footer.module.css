@@ -23,12 +23,16 @@
   padding: 64px 0 52px;
 }
 
-.brand em {
-  font-family: var(--font-serif), Georgia, serif;
-  font-style: italic;
-  font-size: 30px;
-  line-height: 1;
-  color: var(--v2-ink);
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.brand img {
+  display: block;
+  width: auto;
+  height: 40px;
 }
 
 .about {
@@ -104,9 +108,20 @@
 
 @media (max-width: 860px) {
   .top { grid-template-columns: 1fr; gap: 38px; padding: 48px 0 38px; }
-  .cols { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 20px; }
   .legal { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
-@media (max-width: 480px) {
-  .cols { grid-template-columns: 1fr; }
+
+@media (max-width: 560px) {
+  .brand img { height: 34px; }
+  .about { max-width: none; margin-top: 14px; font-size: 13.5px; }
+  .socials { margin-top: 20px; }
+  /* Two columns, not one — a single stack turns the footer into a 900px
+     scroll of its own on a phone. */
+  .cols { gap: 22px 16px; }
+  .col b { margin-bottom: 12px; font-size: 14px; }
+  .col a { padding: 6px 0; font-size: 14px; }
+  /* the contact column has the longest items, so it takes the full row */
+  .col:last-child { grid-column: 1 / -1; }
+  .legal { padding: 18px 0 26px; font-size: 10.5px; }
 }

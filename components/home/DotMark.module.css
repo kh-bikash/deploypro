@@ -1,0 +1,19 @@
+/* The monogram sits between the aurora and the grid: it is texture, so it must
+   never read as a second headline behind the real one. */
+.mark {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: .5;
+}
+
+@media (max-width: 860px) {
+  .mark { opacity: .4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mark { opacity: .34; }
+}

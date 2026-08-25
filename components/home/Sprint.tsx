@@ -10,12 +10,17 @@ const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v
 /** Mirrors --v2-accent (#3b82f6) — the wheel blends in rgb, so it needs numbers. */
 const ACCENT: [number, number, number] = [59, 130, 246];
 
-/** The pane only pins when there is room for it — otherwise the section stacks. */
-// Must clear the 980px breakpoint below, where the wheel and card stack — a
-// stacked layout is far taller than the pinned pane can show.
-const PIN_QUERY = "(min-width: 981px) and (min-height: 760px)";
+/**
+ * Pinning is a question of vertical room, not width — phones get the same
+ * scroll-driven wheel, just on the stacked layout below.
+ */
+const PIN_QUERY = "(min-height: 600px)";
 /** Short-but-still-pinnable viewports get a tighter card and a shorter wheel. */
 const COMPACT_QUERY = "(max-height: 900px)";
+/** Below this the wheel sits above the card instead of beside it. */
+const NARROW_QUERY = "(max-width: 980px)";
+/** Phones shrink the wheel again — a tablet has room for a much bigger label. */
+const PHONE_QUERY = "(max-width: 640px)";
 
 export default function Sprint() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -24,25 +29,29 @@ export default function Sprint() {
 
   const [pinned, setPinned] = useState(true);
   const [compact, setCompact] = useState(false);
+  const [narrow, setNarrow] = useState(false);
+  const [phone, setPhone] = useState(false);
   const [active, setActive] = useState(0);
   const last = sprintStages.length - 1;
 
   // One source of truth for pinning: this state also drives the CSS through
   // data-pinned, so the layout and the scroll maths can never disagree.
   useEffect(() => {
-    const mq = window.matchMedia(PIN_QUERY);
-    const shortMq = window.matchMedia(COMPACT_QUERY);
+    const queries = [PIN_QUERY, COMPACT_QUERY, NARROW_QUERY, PHONE_QUERY].map((q) =>
+      window.matchMedia(q),
+    );
+    const [pinMq, shortMq, narrowMq, phoneMq] = queries;
     const sync = () => {
-      setPinned(mq.matches);
+      setPinned(pinMq.matches);
       setCompact(shortMq.matches);
+      setNarrow(narrowMq.matches);
+      setPhone(phoneMq.matches);
     };
     sync();
-    mq.addEventListener("change", sync);
-    shortMq.addEventListener("change", sync);
+    queries.forEach((mq) => mq.addEventListener("change", sync));
     window.addEventListener("resize", sync, { passive: true });
     return () => {
-      mq.removeEventListener("change", sync);
-      shortMq.removeEventListener("change", sync);
+      queries.forEach((mq) => mq.removeEventListener("change", sync));
       window.removeEventListener("resize", sync);
     };
   }, []);
@@ -92,8 +101,14 @@ export default function Sprint() {
   };
 
   return (
-    <section className={styles.section} id="sprint" data-pinned={pinned ? "true" : "false"}
-      data-compact={compact ? "true" : "false"}>
+    <section
+      className={styles.section}
+      id="sprint"
+      data-pinned={pinned ? "true" : "false"}
+      data-compact={compact ? "true" : "false"}
+      data-narrow={narrow ? "true" : "false"}
+      data-phone={phone ? "true" : "false"}
+    >
       <div className={styles.track} ref={trackRef}>
         <div className={styles.sticky}>
           <div className={styles.inner}>
@@ -113,14 +128,15 @@ export default function Sprint() {
                 value={active}
                 onChange={goTo}
                 positionRef={pinned ? posRef : undefined}
-                fontSize={2.7}
-                spacing={1.45}
-                tilt={11}
-                blur={0.9}
+                fontSize={phone ? 1.5 : narrow ? 2.15 : 2.7}
+                spacing={narrow ? 1.55 : 1.45}
+                curve={narrow ? 0.45 : 1}
+                tilt={narrow ? 9 : 11}
+                blur={narrow ? 0.7 : 0.9}
                 fade={0.26}
                 minOpacity={0.26}
                 smoothing={260}
-                height={compact ? 350 : 430}
+                height={phone ? 168 : narrow ? 250 : compact ? 350 : 430}
                 activeColor={ACCENT}
               />
 

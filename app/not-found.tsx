@@ -1,39 +1,25 @@
 import Link from "next/link";
-import PageHead from "@/components/PageHead";
+import HomeNav from "@/components/home/HomeNav";
+import shell from "./home.module.css";
+import styles from "./not-found.module.css";
 
 export default function NotFound() {
   return (
-    <>
-      <PageHead
-        kicker="404"
-        title={
-          <>
-            That page is not
-            <br />
-            <em>deployed.</em>
-          </>
-        }
-        lead="The link may be out of date. Everything about the program is one of the four places below."
-      />
-      <section className="section">
-        <div className="container card-grid three">
-          <Link className="flat-card" href="/process">
-            <span className="eyebrow-mini">Program</span>
-            <h3>The DEPLOY process</h3>
-            <p>Detect through Yield, and what production actually means.</p>
-          </Link>
-          <Link className="flat-card" href="/proof">
-            <span className="eyebrow-mini">Proof</span>
-            <h3>What we have shipped</h3>
-            <p>Deployed systems, measured results and sector evidence.</p>
-          </Link>
-          <Link className="flat-card" href="/engage">
-            <span className="eyebrow-mini">Commercials</span>
-            <h3>How we engage</h3>
-            <p>The offer ladder, who it is for, and who it is not for.</p>
-          </Link>
+    <div className={shell.shell}>
+      <HomeNav />
+      <div className={styles.wrap}>
+        <span className={styles.code}>404</span>
+        <h1 className={styles.title}>That page is not deployed.</h1>
+        <p className={styles.lead}>
+          The link is out of date. Everything about the program lives in one of the three places
+          below.
+        </p>
+        <div className={styles.links}>
+          <Link href="/">Home</Link>
+          <Link href="/proof">Proof</Link>
+          <Link href="/#book">Book a call</Link>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 }

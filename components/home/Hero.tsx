@@ -1,5 +1,6 @@
 import Aurora from "./Aurora";
 import DeployWord from "./DeployWord";
+import DotMark from "./DotMark";
 import HomeNav from "./HomeNav";
 import { heroStats } from "@/lib/home";
 import styles from "./Hero.module.css";
@@ -12,6 +13,7 @@ export default function Hero() {
       <section className={styles.hero} id="top">
         <div className={styles.glow} aria-hidden="true" />
         <Aurora />
+        <DotMark />
         <div className={styles.grid} aria-hidden="true" />
 
         <div className={styles.inner}>

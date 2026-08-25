@@ -6,7 +6,7 @@ import styles from "./BookCta.module.css";
 const href = site.schedulingUrl
   ? site.schedulingUrl
   : `mailto:${site.contactEmail}?subject=${encodeURIComponent(
-      "Scoping call — DEPLOY",
+      "Scoping call - DEPLOY",
     )}&body=${encodeURIComponent(
       "Company:\nRole:\nThe workflow we want to fix:\n\nTwo or three times that work for you:",
     )}`;

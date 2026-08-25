@@ -4,9 +4,22 @@
   top: 0;
   left: 0;
   right: 0;
+  border-bottom: 1px solid transparent;
+  transition: background .28s ease, border-color .28s ease;
+}
+
+/* Over the hero the bar is glass on glass; the moment real content passes
+   under it, it needs a ground of its own or the two overlap illegibly. */
+.nav[data-solid="true"] {
+  background: rgba(10, 10, 11, .82);
+  backdrop-filter: saturate(140%) blur(16px);
+  -webkit-backdrop-filter: saturate(140%) blur(16px);
+  border-bottom-color: var(--v2-line);
 }
 
 .inner {
+  position: relative;
+  z-index: 3;
   width: min(1400px, calc(100vw - 44px));
   margin: 0 auto;
   height: 84px;
@@ -16,23 +29,31 @@
   gap: 20px;
 }
 
-/* ---------- logo lockup: serif italic word + mono descriptor ---------- */
+/* ---------- logo lockup: the mark plus the mono descriptor ---------- */
 .brand {
   justify-self: start;
   display: inline-flex;
-  align-items: baseline;
-  gap: 9px;
+  /* an image has no baseline worth aligning to, so the lockup centres */
+  align-items: center;
+  gap: 11px;
 }
-.mark em {
-  font-family: var(--font-serif), Georgia, serif;
-  font-style: italic;
-  font-size: 25px;
-  line-height: 1;
-  letter-spacing: -.01em;
-  color: var(--v2-ink);
-  transition: opacity .2s ease;
+
+.mark {
+  display: inline-flex;
+  align-items: center;
 }
-.mark:hover em { opacity: .78; }
+
+/* the supplied mark, sized off its own height so the lockup stays optical */
+.mark img {
+  display: block;
+  width: auto;
+  height: 32px;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.mark:hover img {
+  opacity: .82;
+  transform: translateY(-1px);
+}
 
 .by {
   font-family: var(--font-mono), monospace;
@@ -251,19 +272,42 @@
   font-size: 15px;
 }
 
+/* full-bleed dimmer: tapping anywhere off the sheet closes it */
+.scrim {
+  position: fixed;
+  /* under the bar (60), over everything else */
+  z-index: 55;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(6, 6, 7, .62);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  animation: scrimIn .2s ease both;
+}
+@keyframes scrimIn { from { opacity: 0; } to { opacity: 1; } }
+
 .mobile {
+  position: relative;
+  z-index: 3;
   display: none;
   flex-direction: column;
   width: min(1400px, calc(100vw - 44px));
   margin: 0 auto;
   padding: 10px;
   border-radius: 22px;
-  border: 1px solid var(--v2-glass-line);
-  background: rgba(12, 12, 13, .82);
-  backdrop-filter: var(--v2-blur);
-  -webkit-backdrop-filter: var(--v2-blur);
+  border: 1px solid var(--v2-line-2);
+  /* near-opaque on purpose: at 82% the headline underneath read straight
+     through the sheet */
+  background: rgba(14, 14, 16, .985);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, .6);
+  animation: sheetIn .24s cubic-bezier(.16, 1, .3, 1) both;
 }
 .mobile.open { display: flex; }
+@keyframes sheetIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
 .mobile a {
   padding: 13px 14px;
   border-radius: 14px;
@@ -293,4 +337,20 @@
   .inner { grid-template-columns: 1fr auto; height: 72px; }
   .links, .cta { display: none; }
   .toggle { display: grid; place-items: center; }
+  /* the sheet hangs off the bar, so the bar itself must be opaque while open */
+  .nav[data-open="true"] { background: rgba(10, 10, 11, .96); }
+  .mobile { padding: 8px; border-radius: 18px; }
+  .mobile a { padding: 14px 14px; font-size: 16px; }
+}
+
+@media (max-width: 560px) {
+  .inner { width: calc(100vw - 32px); height: 66px; }
+  .brand { gap: 8px; }
+  .mark img { height: 27px; }
+  .by { font-size: 9.5px; letter-spacing: .1em; }
+  .mobile { width: calc(100vw - 32px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrim, .mobile { animation: none; }
 }

@@ -4,7 +4,7 @@
  */
 
 export const heroStats = [
-  { headline: "2 FDEs", label: "embedded in your team, not advising from outside" },
+  { headline: "FDE pod", label: "embedded in your team, not advising from outside" },
   { headline: "14 days", label: "median time to first production deploy" },
   { headline: "Zero decks", label: "we hand over systems, not recommendations" },
 ];
@@ -62,8 +62,8 @@ export const sprintStages = [
   {
     no: "01",
     title: "Embed & scope",
-    days: "Days 0–3",
-    body: "Three days inside the real work — your Slack, your standups. We leave with one workflow picked and a number to beat.",
+    days: "Days 0-3",
+    body: "Three days inside the real work - your Slack, your standups. We leave with one workflow picked and a number to beat.",
     marksLabel: "What lands",
     marks: ["The workflow, chosen and scoped", "A baseline everyone agreed to", "Systems and data access in place"],
     need: "A problem owner who knows the workflow, and someone who can grant access.",
@@ -71,7 +71,7 @@ export const sprintStages = [
   {
     no: "02",
     title: "Build against reality",
-    days: "Days 4–10",
+    days: "Days 4-10",
     body: "We build on your real data and the edge cases your pilot skipped. You see it running at the end of every day.",
     marksLabel: "What lands",
     marks: ["A working system, not a prototype", "Live integrations to your stack", "A build you can open every day"],
@@ -80,7 +80,7 @@ export const sprintStages = [
   {
     no: "03",
     title: "Deploy to production",
-    days: "Days 11–14",
+    days: "Days 11-14",
     body: "It goes live alongside your current process, so you can compare the two before anything depends on it.",
     marksLabel: "What lands",
     marks: ["Running in your environment", "Human approval on the risky steps", "Measured against the baseline"],
@@ -100,27 +100,27 @@ export const sprintStages = [
 export const faqs = [
   {
     q: "What exactly is a forward-deployed engineer?",
-    a: "An engineer who works inside your business — your tools, your data, your team — and ships production systems, not prototypes. Palantir invented the model; OpenAI, Anthropic and AWS have since committed billions to it. It is the opposite of a consultant who advises from a distance.",
+    a: "An engineer who works inside your business - your tools, your data, your team - and ships production systems, not prototypes. Palantir invented the model; OpenAI, Anthropic and AWS have since committed billions to it. It is the opposite of a consultant who advises from a distance.",
   },
   {
     q: "How is this different from consulting?",
-    a: "Consulting tells you what to build. We build it, deploy it, and stay until the number moves. The deliverable is a changed operation with a measurable before and after — not a recommendation.",
+    a: "Consulting tells you what to build. We build it, deploy it, and stay until the number moves. The deliverable is a changed operation with a measurable before and after - not a recommendation.",
   },
   {
     q: "What does a sprint cost?",
-    a: "Sprints are fixed-scope and priced per engagement after a 30-minute scoping call, because the honest answer depends on the project. What we can tell you: it is scoped to be a fraction of one hire's annual cost — and the system running in production is how you judge the return.",
+    a: "Sprints are fixed-scope and priced per engagement after a 30-minute scoping call, because the honest answer depends on the project. What we can tell you: it is scoped to be a fraction of one hire's annual cost - and the system running in production is how you judge the return.",
   },
   {
     q: "Which models and tools do you use?",
-    a: "We are vendor-neutral. Every new model resets what is possible — your operations should not have to reset with it. We pick whatever ships fastest and runs cheapest for your workflow, and we build for model portability so you are never locked in.",
+    a: "We are vendor-neutral. Every new model resets what is possible - your operations should not have to reset with it. We pick whatever ships fastest and runs cheapest for your workflow, and we build for model portability so you are never locked in.",
   },
   {
     q: "Who actually does the work?",
-    a: "Senior builders from Build Fast with AI — the same people who teach hundreds of builders to ship AI systems in our programs. We build for a living and we teach it; the sprint is where both meet your business.",
+    a: "Senior builders from Build Fast with AI - the same people who teach hundreds of builders to ship AI systems in our programs. We build for a living and we teach it; the sprint is where both meet your business.",
   },
   {
     q: "What happens after the sprint ends?",
-    a: "Your team runs the system — capability transfer is part of the sprint, not an add-on. If you want us to stay and keep shipping workflows, that is the FDE Pod.",
+    a: "Your team runs the system - capability transfer is part of the sprint, not an add-on. If you want us to stay and keep shipping workflows, that is the FDE Pod.",
   },
 ];
 
@@ -135,8 +135,9 @@ export const workClients = [
   { name: "Accel", domain: "accel.com" },
   { name: "Wispr Flow", domain: "wisprflow.ai", file: "wisprflow" },
   { name: "BCG", domain: "bcg.com", file: "bcg" },
-  { name: "Google", domain: "google.com", file: "google" },
   { name: "mem0", domain: "mem0.ai" },
+  { name: "CodeYoung", domain: "codeyoung.com" },
+  { name: "FloCareer", domain: "flocareer.com" },
 ];
 
 /** Condensed from the full case studies in lib/content.ts. */

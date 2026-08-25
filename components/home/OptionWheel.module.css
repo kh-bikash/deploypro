@@ -41,8 +41,10 @@
   will-change: transform, opacity, filter;
 }
 
-@media (max-width: 560px) {
-  .item { font-size: .68em; }
+/* The longest stage name is 21 characters of monospace; capping the label at a
+   share of the viewport is what keeps it inside the rail on small screens. */
+@media (max-width: 640px) {
+  .item { font-size: min(1em, 6.2vw); }
 }
 
 /* thin rail marking the selected row */
