@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import Logo from "@/components/Logo";
 import { site, socials } from "@/lib/site";
 import styles from "./Footer.module.css";
 
@@ -42,7 +42,7 @@ export default function Footer() {
           <div className={styles.top}>
             <div className={styles.brandCol}>
               <div className={styles.brand}>
-                <Image src="/logo.png" alt="DEPLOY" width={303} height={264} />
+                <Logo size={32} />
               </div>
               <p className={styles.about}>
                 Forward-deployed engineers who take one workflow from idea to production - then

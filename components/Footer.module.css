@@ -24,12 +24,12 @@
 }
 
 .brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 11px;
+  color: #ffffff;
 }
 
-.brand img {
+.brand svg {
   display: block;
   width: auto;
   height: 40px;
@@ -113,7 +113,7 @@
 }
 
 @media (max-width: 560px) {
-  .brand img { height: 34px; }
+  .brand svg { height: 34px; }
   .about { max-width: none; margin-top: 14px; font-size: 13.5px; }
   .socials { margin-top: 20px; }
   /* Two columns, not one — a single stack turns the footer into a 900px

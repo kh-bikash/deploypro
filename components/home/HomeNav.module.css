@@ -33,26 +33,27 @@
 .brand {
   justify-self: start;
   display: inline-flex;
-  /* an image has no baseline worth aligning to, so the lockup centres */
   align-items: center;
-  gap: 11px;
+  gap: 12px;
 }
 
 .mark {
   display: inline-flex;
   align-items: center;
+  line-height: 1;
+  color: var(--v2-ink);
+  transition: transform .2s ease, opacity .2s ease;
 }
-
-/* the supplied mark, sized off its own height so the lockup stays optical */
-.mark img {
+.mark:hover {
+  transform: scale(1.05);
+  opacity: .88;
+}
+/* sized here rather than through the component's size prop, so the breakpoint
+   below can shrink it without a second source of truth */
+.mark svg {
   display: block;
   width: auto;
-  height: 32px;
-  transition: opacity .2s ease, transform .2s ease;
-}
-.mark:hover img {
-  opacity: .82;
-  transform: translateY(-1px);
+  height: 30px;
 }
 
 .by {
@@ -346,7 +347,7 @@
 @media (max-width: 560px) {
   .inner { width: calc(100vw - 32px); height: 66px; }
   .brand { gap: 8px; }
-  .mark img { height: 27px; }
+  .mark svg { height: 26px; }
   .by { font-size: 9.5px; letter-spacing: .1em; }
   .mobile { width: calc(100vw - 32px); }
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Logo from "@/components/Logo";
 import { homeNav } from "@/lib/home";
 import { site } from "@/lib/site";
 import styles from "./HomeNav.module.css";
@@ -74,14 +74,8 @@ export default function HomeNav() {
         {/* two separate targets — the wordmark goes home, the parent brand goes
             to Build Fast with AI (nesting anchors would be invalid markup) */}
         <div className={styles.brand}>
-          <Link className={styles.mark} href="/">
-            <Image
-              src="/logo.png"
-              alt="DEPLOY"
-              width={303}
-              height={264}
-              priority
-            />
+          <Link className={styles.mark} href="/" aria-label="DEPLOY Home">
+            <Logo />
           </Link>
           <span className={styles.by}>
             by{" "}
